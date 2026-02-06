@@ -1,0 +1,718 @@
+:root {
+    --nm-primary: #0b2aa8;
+    --nm-accent: #f59e0b;
+    --nm-footer-bg: #071b4d;
+    --nm-text: #0b1220;
+
+    --nm-border: rgba(15, 23, 42, 0.12);
+    --nm-shadow: 0 16px 40px rgba(2, 6, 23, 0.15);
+    --nm-soft-shadow: 0 10px 28px rgba(2, 6, 23, 0.08);
+
+    --nm-radius: 14px;
+    --nm-radius-sm: 10px;
+    --nm-transition: 220ms ease;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--nm-text);
+    background: #fff;
+}
+
+.nm-container {
+    width: min(1240px, calc(100% - 36px));
+    margin: 0 auto;
+}
+
+/* ===========================
+   HEADER (Sticky + Shrink)
+=========================== */
+.nm-header {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background: rgba(255, 255, 255, 0.96);
+    border-bottom: 1px solid var(--nm-border);
+    transition: var(--nm-transition);
+    backdrop-filter: blur(10px);
+}
+
+.nm-header.is-scrolled {
+    box-shadow: var(--nm-soft-shadow);
+}
+
+.nm-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 0;
+    transition: var(--nm-transition);
+}
+
+.nm-header.is-scrolled .nm-header-inner {
+    padding: 10px 0;
+}
+
+/* Branding */
+.nm-brand {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nm-brand-text {
+    font-weight: 900;
+    font-size: 28px;
+    letter-spacing: -0.8px;
+    color: #0a1b4d;
+    transition: var(--nm-transition);
+}
+
+.nm-header.is-scrolled .nm-brand-text {
+    font-size: 24px;
+}
+
+.nm-logo img {
+    max-height: 52px;
+    width: auto;
+    transition: var(--nm-transition);
+}
+
+.nm-header.is-scrolled .nm-logo img {
+    max-height: 44px;
+}
+
+/* Desktop nav hidden on mobile */
+.nm-nav-desktop {
+    display: none;
+}
+
+/* Mobile toggle */
+.nm-mobile-toggle {
+    border: 1px solid var(--nm-border);
+    background: #fff;
+    border-radius: var(--nm-radius);
+    padding: 10px 14px;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(2, 6, 23, 0.06);
+    transition: var(--nm-transition);
+}
+
+.nm-mobile-toggle:hover {
+    transform: translateY(-1px);
+    border-color: rgba(11, 42, 168, 0.25);
+}
+
+.nm-mobile-toggle i {
+    font-size: 18px;
+    color: #0a1b4d;
+}
+
+/* ===========================
+   DESKTOP MENU
+=========================== */
+/* ===========================
+   DESKTOP MENU (FIXED)
+=========================== */
+.nm-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nm-menu>li {
+    position: relative;
+}
+
+.nm-menu>li>a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: #0b1220;
+    font-weight: 700;
+    font-size: 15px;
+    position: relative;
+    transition: var(--nm-transition);
+}
+
+/* underline effect using BEFORE */
+.nm-menu>li>a::before {
+    content: "";
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 6px;
+    height: 2px;
+    background: var(--nm-primary);
+    border-radius: 999px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: 220ms ease;
+    opacity: 0.95;
+}
+
+/* Hover style */
+.nm-menu>li:hover>a {
+    color: var(--nm-primary);
+    background: rgba(11, 42, 168, 0.06);
+}
+
+.nm-menu>li:hover>a::before {
+    transform: scaleX(1);
+}
+
+/* Active menu underline */
+.nm-menu .current-menu-item>a,
+.nm-menu .current-menu-ancestor>a {
+    color: var(--nm-primary);
+    background: rgba(11, 42, 168, 0.08);
+}
+
+.nm-menu .current-menu-item>a::before,
+.nm-menu .current-menu-ancestor>a::before {
+    transform: scaleX(1);
+}
+
+/* Dropdown arrow ONLY for parent items (RIGHT SIDE) */
+.nm-menu>li.menu-item-has-children>a::after {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-right: 2px solid rgba(15, 23, 42, 0.6);
+    border-bottom: 2px solid rgba(15, 23, 42, 0.6);
+    transform: rotate(45deg);
+    transition: var(--nm-transition);
+    margin-left: 10px;
+    display: inline-block;
+    position: relative;
+    top: -1px;
+}
+
+/* Rotate arrow on hover */
+.nm-menu>li.menu-item-has-children:hover>a::after {
+    border-color: var(--nm-primary);
+    transform: rotate(225deg);
+}
+
+/* ===========================
+   DROPDOWN MENU
+=========================== */
+.nm-menu li ul {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 14px);
+    min-width: 270px;
+    background: #fff;
+    border: 1px solid var(--nm-border);
+    border-radius: var(--nm-radius);
+    box-shadow: var(--nm-shadow);
+    padding: 12px;
+    margin: 0;
+    list-style: none;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: 180ms ease;
+    z-index: 999;
+}
+
+/* Show dropdown */
+.nm-menu li:hover>ul {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Dropdown list items */
+.nm-menu li ul li {
+    position: relative;
+}
+
+/* Dropdown links */
+.nm-menu li ul li>a {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    color: #0b1220;
+    background: rgba(2, 6, 23, 0.02);
+    transition: var(--nm-transition);
+}
+
+.nm-menu li ul li>a:hover {
+    background: rgba(11, 42, 168, 0.09);
+    color: var(--nm-primary);
+}
+
+/* Arrow for submenu items that have children (right side) */
+.nm-menu li ul li.menu-item-has-children>a::after {
+    content: "›";
+    font-size: 18px;
+    font-weight: 900;
+    opacity: 0.7;
+    margin-left: auto;
+    transition: var(--nm-transition);
+}
+
+.nm-menu li ul li.menu-item-has-children:hover>a::after {
+    opacity: 1;
+    color: var(--nm-primary);
+}
+
+/* ===========================
+   SUB SUB MENU (LEVEL 3)
+=========================== */
+.nm-menu li ul li ul {
+    left: calc(100% + 14px);
+    top: 0;
+}
+
+/* prevent overflow */
+.nm-menu li ul {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+/* Smooth dropdown animation */
+.nm-menu li ul {
+    transform-origin: top;
+}
+
+.nm-menu li:hover>ul {
+    animation: nmDropdown 200ms ease forwards;
+}
+
+@keyframes nmDropdown {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ===========================
+   MEGA MENU SUPPORT
+=========================== */
+.nm-menu li.nm-mega>ul {
+    width: min(860px, 95vw);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 18px;
+}
+
+.nm-menu li.nm-mega>ul>li>a {
+    background: rgba(2, 6, 23, 0.03);
+    padding: 14px 16px;
+    border-radius: 14px;
+    font-size: 14px;
+}
+
+.nm-menu li.nm-mega>ul>li>a:hover {
+    background: rgba(11, 42, 168, 0.10);
+}
+
+
+
+
+/* ===========================
+   MEGA MENU SUPPORT
+   (JS will add nm-mega class)
+=========================== */
+.nm-menu li.nm-mega>ul {
+    width: min(820px, 95vw);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 18px;
+}
+
+.nm-menu li.nm-mega>ul>li>a {
+    background: rgba(2, 6, 23, 0.03);
+    padding: 14px 14px;
+    border-radius: 14px;
+    font-size: 14px;
+    justify-content: space-between;
+}
+
+
+.nm-menu li.nm-mega>ul>li>a:hover {
+    background: rgba(11, 42, 168, 0.08);
+}
+
+/* ===========================
+   MOBILE DRAWER MENU
+=========================== */
+.nm-drawer {
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 1000;
+}
+
+.nm-drawer.is-open {
+    display: block;
+}
+
+.nm-drawer-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(2, 6, 23, 0.60);
+    backdrop-filter: blur(2px);
+}
+
+.nm-drawer-panel {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: min(380px, 92vw);
+    background: #fff;
+    box-shadow: var(--nm-shadow);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(20px);
+    animation: nmSlideIn 250ms ease forwards;
+}
+
+@keyframes nmSlideIn {
+    to {
+        transform: translateX(0);
+    }
+}
+
+.nm-drawer-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--nm-border);
+}
+
+.nm-drawer-title {
+    font-weight: 900;
+    font-size: 18px;
+    color: #0a1b4d;
+}
+
+.nm-drawer-close {
+    border: 0;
+    background: transparent;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 10px;
+}
+
+.nm-drawer-close:hover {
+    background: rgba(2, 6, 23, 0.06);
+}
+
+.nm-menu-mobile {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: auto;
+    padding-right: 6px;
+}
+
+.nm-menu-mobile>li>a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 14px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: #0b1220;
+    font-weight: 800;
+    background: rgba(2, 6, 23, 0.04);
+    transition: var(--nm-transition);
+}
+
+.nm-menu-mobile>li>a:hover {
+    background: rgba(11, 42, 168, 0.08);
+    color: var(--nm-primary);
+}
+
+.nm-menu-mobile li ul {
+    list-style: none;
+    margin: 8px 0 0 0;
+    padding: 0 0 0 12px;
+    display: none;
+}
+
+.nm-menu-mobile li.is-open>ul {
+    display: block;
+}
+
+.nm-menu-mobile li ul a {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 700;
+    color: #0b1220;
+    background: rgba(2, 6, 23, 0.03);
+    transition: var(--nm-transition);
+}
+
+.nm-menu-mobile li ul a:hover {
+    background: rgba(11, 42, 168, 0.08);
+    color: var(--nm-primary);
+}
+
+.nm-subtoggle {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 10px;
+}
+
+.nm-subtoggle:hover {
+    background: rgba(2, 6, 23, 0.06);
+}
+
+.nm-subtoggle i {
+    color: #334155;
+    transition: 180ms ease;
+}
+
+.nm-menu-mobile li.is-open>a .nm-subtoggle i {
+    transform: rotate(180deg);
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+.nm-footer {
+    background: var(--nm-footer-bg);
+    color: rgba(255, 255, 255, 0.86);
+    margin-top: auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.nm-footer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.06), transparent 55%),
+        radial-gradient(circle at 80% 40%, rgba(255, 255, 255, 0.05), transparent 55%);
+    pointer-events: none;
+}
+
+.nm-footer-inner {
+    padding: 44px 0 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.nm-footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 26px;
+}
+
+.nm-footer-title {
+    margin: 0 0 12px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.nm-footer-text {
+    margin: 0;
+    line-height: 1.8;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.nm-footer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nm-footer-links a {
+    color: rgba(255, 255, 255, 0.86);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.nm-footer-links a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.nm-social {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.nm-social a {
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    text-decoration: none;
+    transition: var(--nm-transition);
+}
+
+.nm-social a:hover {
+    background: rgba(255, 255, 255, 0.16);
+    transform: translateY(-1px);
+}
+
+.nm-footer-bottom {
+    margin-top: 28px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.nm-scrolltop {
+    width: 46px;
+    height: 46px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-decoration: none;
+    transition: var(--nm-transition);
+}
+
+.nm-scrolltop:hover {
+    background: rgba(255, 255, 255, 0.20);
+    transform: translateY(-2px);
+}
+
+/* ===========================
+   CONTENT HELPERS
+=========================== */
+.nm-content {
+    padding: 26px 0;
+}
+
+.nm-h1 {
+    font-size: clamp(24px, 3vw, 38px);
+    margin: 0 0 12px;
+}
+
+.nm-prose {
+    line-height: 1.9;
+    font-size: 16px;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media (min-width: 992px) {
+    .nm-nav-desktop {
+        display: block;
+    }
+
+    .nm-mobile-toggle {
+        display: none;
+    }
+
+    .nm-footer-grid {
+        grid-template-columns: 1.1fr 1.4fr 1.3fr;
+    }
+}
+
+/* Accessibility focus */
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid rgba(11, 42, 168, 0.4);
+    outline-offset: 2px;
+    border-radius: 10px;
+}
+
+.nm-menu li ul {
+    transform-origin: top;
+}
+
+.nm-menu li:hover>ul {
+    animation: nmDropdown 200ms ease forwards;
+}
+
+@keyframes nmDropdown {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.nm-scrolltop {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: 250ms ease;
+}
+
+.nm-scrolltop.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+}
