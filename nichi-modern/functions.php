@@ -116,3 +116,14 @@ function nm_inline_theme_css() {
 add_action('wp_enqueue_scripts', 'nm_inline_theme_css', 20);
 
 
+add_action('init', function () {
+  register_block_pattern_category('nichi-modern', [
+    'label' => __('Nichi Modern Patterns', 'nichi-modern')
+  ]);
+});
+
+add_action('init', function () {
+  register_block_pattern_category('nichimodern', [
+    'label' => __('Nichi Modern Patterns', 'nichi-modern'),
+  ]);
+});

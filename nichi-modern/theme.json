@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "settings": {
+    "color": {
+      "palette": [
+        { "name": "Primary Blue", "slug": "primary", "color": "#0b2aa8" },
+        { "name": "Accent Orange", "slug": "accent", "color": "#f59e0b" },
+        { "name": "Dark Navy", "slug": "dark", "color": "#071b4d" },
+        { "name": "Light Gray", "slug": "light", "color": "#f5f7fb" }
+      ]
+    },
+    "typography": {
+      "fontFamilies": [
+        {
+          "fontFamily": "system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
+          "slug": "system",
+          "name": "System Font"
+        }
+      ]
+    },
+    "layout": {
+      "contentSize": "1240px",
+      "wideSize": "1400px"
+    }
+  }
+}

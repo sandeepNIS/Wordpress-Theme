@@ -716,3 +716,148 @@ button:focus-visible {
     pointer-events: auto;
     transform: translateY(0);
 }
+
+/* ===========================
+   HERO SECTION BACKGROUND
+=========================== */
+.nm-hero {
+    position: relative;
+    padding: 90px 0;
+    overflow: hidden;
+    border-radius: 0;
+    background: url("../images/hero-bg.png") center/cover no-repeat;
+}
+
+.nm-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+            rgba(7, 27, 77, 0.85),
+            rgba(7, 27, 77, 0.55),
+            rgba(7, 27, 77, 0.20));
+}
+
+.nm-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("../images/dotted-overlay.png") center/cover no-repeat;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.nm-hero-inner {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+}
+
+.nm-hero h1 {
+    font-size: clamp(32px, 4vw, 58px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin: 0 0 14px;
+}
+
+.nm-hero p {
+    max-width: 650px;
+    font-size: 18px;
+    line-height: 1.8;
+    opacity: 0.92;
+}
+
+.nm-hero-btns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+}
+
+.nm-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 22px;
+    border-radius: 14px;
+    background: var(--nm-accent);
+    color: #0b1220;
+    font-weight: 900;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.nm-btn-primary:hover {
+    transform: translateY(-2px);
+    opacity: 0.95;
+}
+
+.nm-btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 22px;
+    border-radius: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    color: #fff;
+    font-weight: 900;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.nm-btn-outline:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* ===========================
+   CONTACT SECTION IMAGE
+=========================== */
+.nm-contact-section {
+    margin-top: 60px;
+    border-radius: 18px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr;
+    background: #fff;
+    box-shadow: var(--nm-shadow);
+}
+
+.nm-contact-img {
+    min-height: 260px;
+    background: url("../images/contact-photo.png") center/cover no-repeat;
+}
+
+.nm-contact-content {
+    padding: 34px;
+}
+
+.nm-contact-content h2 {
+    margin: 0 0 12px;
+    font-size: 30px;
+    font-weight: 900;
+}
+
+.nm-contact-content p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.9;
+    opacity: 0.85;
+}
+
+@media (min-width: 992px) {
+    .nm-contact-section {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ===========================
+   FOOTER WORLD MAP BACKGROUND
+=========================== */
+.nm-footer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("../images/footer-world-map.png") center/cover no-repeat;
+    opacity: 0.12;
+    pointer-events: none;
+}
