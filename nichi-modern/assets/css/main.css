@@ -742,7 +742,7 @@ button:focus-visible {
     content: "";
     position: absolute;
     inset: 0;
-    background: url("../images/dotted-overlay.png") center/cover no-repeat;
+    background: url("../images/dotted-overlay.webp") center/cover no-repeat;
     opacity: 0.3;
     pointer-events: none;
 }
@@ -824,7 +824,7 @@ button:focus-visible {
 
 .nm-contact-img {
     min-height: 260px;
-    background: url("../images/contact-photo.png") center/cover no-repeat;
+    background: url("../images/contact-photo.jpg") center/cover no-repeat;
 }
 
 .nm-contact-content {
@@ -860,4 +860,26 @@ button:focus-visible {
     background: url("../images/footer-world-map.png") center/cover no-repeat;
     opacity: 0.12;
     pointer-events: none;
+}
+
+.nm-testimonials {
+    margin-top: 70px;
+    padding: 70px 0;
+    background: url("../images/testimonial-tiles.avif") center/cover no-repeat;
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+}
+
+.nm-testimonials::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.92);
+}
+
+.nm-testimonials-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
 }
