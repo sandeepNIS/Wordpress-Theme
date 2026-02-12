@@ -17,6 +17,11 @@ function nm_enqueue_assets() {
   $ver = wp_get_theme()->get('Version');
 
   wp_enqueue_style('nm-main', get_template_directory_uri() . '/assets/css/main.css', [], $ver);
+  
+  // Enqueue component-specific styles
+  if (is_singular() || is_front_page()) {
+    wp_enqueue_style('nm-contact', get_template_directory_uri() . '/assets/css/contact.css', ['nm-main'], $ver);
+  }
 
   // Font Awesome (no plugin needed)
   wp_enqueue_style('nm-fa', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css', [], '6.5.0');
@@ -116,14 +121,45 @@ function nm_inline_theme_css() {
 add_action('wp_enqueue_scripts', 'nm_inline_theme_css', 20);
 
 
-add_action('init', function () {
+/**
+ * Custom Block Pattern Registration
+ * This ensures patterns in the /patterns folder are registered even in hybrid themes.
+ */
+function nm_register_patterns() {
   register_block_pattern_category('nichi-modern', [
     'label' => __('Nichi Modern Patterns', 'nichi-modern')
   ]);
-});
 
-add_action('init', function () {
-  register_block_pattern_category('nichimodern', [
-    'label' => __('Nichi Modern Patterns', 'nichi-modern'),
-  ]);
-});
+  $pattern_dir = get_template_directory() . '/patterns/';
+  if (!is_dir($pattern_dir)) return;
+
+  $files = glob($pattern_dir . '*.php');
+  
+  foreach ($files as $file) {
+    $data = get_file_data($file, [
+      'title'      => 'Title',
+      'slug'       => 'Slug',
+      'categories' => 'Categories',
+    ]);
+
+    if (empty($data['slug'])) continue;
+
+    // Use output buffering to evaluate PHP in pattern files
+    ob_start();
+    include $file;
+    $content = ob_get_clean();
+
+    // Clean up content: Remove any accidental whitespace or remnants of the PHP header
+    // The PHP header is caught in the comment block and doesn't output anything, 
+    // but the closing and opening PHP tags are included.
+    
+    $categories = array_map('trim', explode(',', $data['categories']));
+
+    register_block_pattern($data['slug'], [
+      'title'      => $data['title'],
+      'categories' => $categories,
+      'content'    => $content,
+    ]);
+  }
+}
+add_action('init', 'nm_register_patterns');
