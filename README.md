@@ -1,4 +1,4 @@
-# Nichi Modern
+<img width="1351" height="625" alt="image" src="https://github.com/user-attachments/assets/6e7c303c-ddd0-4819-88ce-7c3740391b43" /># Nichi Modern
 
 A lightweight, modern WordPress theme built with clean PHP and responsive CSS.
 
@@ -72,3 +72,6 @@ To modify the theme:
 ## License
 
 Specify your license here (MIT, GPL, etc.)
+
+<img width="1351" height="625" alt="image" src="https://github.com/user-attachments/assets/d8518745-8da1-4b18-a03b-f165b1fe1715" />
+
