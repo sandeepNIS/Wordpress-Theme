@@ -71,6 +71,6 @@ To modify the theme:
 
 ## License
 
-Specify your license here (MIT, GPL, etc.)<img width="1366" height="7567" alt="screenshot" src="https://github.com/user-attachments/assets/1bdfce09-5f86-4bf9-b08d-296fe3a25fac" />
+Specify your license here (MIT, GPL, etc.)<img width="1351" height="625" alt="screenshot" src="https://github.com/user-attachments/assets/1bdfce09-5f86-4bf9-b08d-296fe3a25fac" />
 
 
